@@ -14,8 +14,9 @@ use Illuminate\Support\Facades\Mail;
 class Mailer
 {
     /**
-     * @param $user
      * @param $view
+     * @param $user
+     * @param string $moderator
      */
     public function sendMail($view, $user, $moderator = '')
     {
