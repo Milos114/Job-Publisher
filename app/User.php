@@ -39,7 +39,7 @@ class User extends Authenticatable
      *
      * @return mixed
      */
-    public function checkPending()
+    public function jobPending()
     {
         return $this->jobs()->where('approve', 0)->first();
     }

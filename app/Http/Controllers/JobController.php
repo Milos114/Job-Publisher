@@ -30,7 +30,7 @@ class JobController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->checkPending()) {
+        if ($user->jobPending()) {
           throw new \Exception('You will have to wait for admin approval regarding your previous submission');
         }
 
