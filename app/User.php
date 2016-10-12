@@ -25,11 +25,23 @@ class User extends Authenticatable
     ];
 
     /**
+     * User can have many jobs
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function jobs()
     {
         return $this->hasMany(Job::class);
+    }
+
+    /**
+     * Check for pending approvals
+     *
+     * @return mixed
+     */
+    public function checkPending()
+    {
+        return $this->jobs()->where('approve', 0)->first();
     }
 
 }

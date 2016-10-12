@@ -22,12 +22,17 @@ class JobController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Requests\JobsCreateRequest $request
+     * @param  Requests\JobsCreateRequest $request
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function store(Requests\JobsCreateRequest $request)
     {
         $user = auth()->user();
+
+        if ($user->checkPending()) {
+          throw new \Exception('You will have to wait for admin approval regarding your previous submission');
+        }
 
         $this->getStrategy()->handle($user, $request->all());
 
