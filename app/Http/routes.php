@@ -19,7 +19,9 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
+// Jobs
 Route::get('job-submission', 'JobController@create');
 Route::post('job-submission', 'JobController@store');
 
+// Admin
 Route::get('admin/job-approve/{id}', 'AdminController@approve');
