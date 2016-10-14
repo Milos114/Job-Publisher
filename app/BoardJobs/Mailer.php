@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: misel
- * Date: 10/11/16
- * Time: 11:01 PM
- */
 
 namespace App\BoardJobs;
 
