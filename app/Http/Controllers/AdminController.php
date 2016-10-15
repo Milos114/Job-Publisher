@@ -7,6 +7,14 @@ use App\Job;
 class AdminController extends Controller
 {
     /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index()
+    {
+        return view('layouts.admin.index');
+    }
+
+    /**
      * @param  int $id
      * @return \Illuminate\Http\RedirectResponse
      */

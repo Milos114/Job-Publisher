@@ -15,7 +15,7 @@ class FirstTimePoster
 {
     /**
      * @param  User $user
-     * @param $attributes
+     * @param  $attributes
      */
     public function handle(User $user, $attributes)
     {

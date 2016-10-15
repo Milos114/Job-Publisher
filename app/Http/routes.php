@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -24,4 +25,7 @@ Route::get('job-submission', 'JobController@create');
 Route::post('job-submission', 'JobController@store');
 
 // Admin
-Route::get('admin/job-approve/{id}', 'AdminController@approve');
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
+    Route::get('home', 'AdminController@index');
+    Route::get('admin/job-approve/{id}', 'AdminController@approve');
+});
