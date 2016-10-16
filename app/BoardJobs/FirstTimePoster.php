@@ -3,26 +3,23 @@
 namespace App\BoardJobs;
 
 
-use App\User;
-
 class FirstTimePoster
 {
     /**
-     * @param  User $user
      * @param  $attributes
      */
-    public function handle(User $user, $attributes)
+    public function handle($attributes)
     {
         $mailer = new Mailer();
 
-        $user->jobs()->create([
+        auth()->user()->jobs()->create([
             'title' => $attributes['title'],
             'description' => $attributes['description'],
             'email' => $attributes['email'],
             'approve' => false
         ]);
 
-        $mailer->sendMail('emails.firstPosting', $user);
-        $mailer->sendMail('emails.moderator', $user, 'moderator@gmail.com');
+        $mailer->sendMail('emails.firstPosting', auth()->user());
+        $mailer->sendMail('emails.moderator', auth()->user(), 'moderator@gmail.com');
     }
 }

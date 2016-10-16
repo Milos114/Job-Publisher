@@ -28,13 +28,11 @@ class JobController extends Controller
      */
     public function store(Requests\JobsCreateRequest $request)
     {
-        $user = auth()->user();
-
-        if ($user->jobPending()) {
+        if (auth()->user()->jobPending()) {
           throw new \Exception('You will have to wait for admin approval regarding your previous submission');
         }
 
-        $this->getStrategy()->handle($user, $request->all());
+        $this->getStrategy()->handle($request->all());
 
         return back()->with('status', 'Job Post Created!');
     }
