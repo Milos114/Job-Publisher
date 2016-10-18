@@ -13,16 +13,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         $this->call(UsersTableSeeder::class);
-         $this->call(RoleTableSeeder::class);
-         $this->call(PermissionTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
+        $this->call(RoleTableSeeder::class);
+        $this->call(PermissionTableSeeder::class);
+        $this->call(UserRoleTableSeeder::class);
+        $this->call(RolePermissionTableSeeder::class);
 
-        foreach (User::all() as $user) {
-            $user->roles()->attach(mt_rand(1, 2));
-        }
+        $this->createAdmin();
+    }
 
-        foreach (Role::all() as $role) {
-            $role->perms()->attach(mt_rand(1, 2));
-        }
+    public function createAdmin()
+    {
+        $admin = User::create([
+            'name' => 'admin',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt(111111),
+        ]);
+
+        $admin->roles()->attach(3);
     }
 }
