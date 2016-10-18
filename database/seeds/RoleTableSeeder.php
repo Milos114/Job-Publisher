@@ -13,9 +13,9 @@ class RoleTableSeeder extends Seeder
     public function run()
     {
         Role::create([
-            'name' => 'user',
-            'display_name' => 'custom user',
-            'description' => 'Just an ordinary everyday user'
+            'name' => 'owner',
+            'display_name' => 'Owner',
+            'description' => 'Site Owner'
         ]);
 
         Role::create([
