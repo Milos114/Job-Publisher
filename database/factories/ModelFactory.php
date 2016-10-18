@@ -11,11 +11,23 @@
 |
 */
 
+use App\User;
+
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->safeEmail,
         'password' => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(App\Job::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => factory(User::class)->make()->id,
+        'title' => $faker->text,
+        'description' => $faker->paragraph,
+        'email' => $faker->email,
+        'approve' => 1,
     ];
 });
