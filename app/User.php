@@ -43,7 +43,7 @@ class User extends Authenticatable
      */
     public function jobPending()
     {
-        return $this->jobs()->where('approve', 0)->first();
+        return $this->jobs()->where('approve', 0)->first() ? true : false;
     }
 
 }
