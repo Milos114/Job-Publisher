@@ -14,6 +14,5 @@ class RolePermissionTableSeeder extends Seeder
     {
         Role::where('name', 'owner')->first()->perms()->attach([1, 2]);
         Role::where('name', 'admin')->first()->perms()->attach(2);
-
     }
 }
