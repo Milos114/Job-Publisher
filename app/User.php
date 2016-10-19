@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\BoardJobs\Presenters\UserPresenter;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
@@ -25,6 +26,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Present the user data
+     *
+     * @return UserPresenter
+     */
+    public function presenter()
+    {
+        return new UserPresenter($this);
+    }
 
     /**
      * User can have many jobs
