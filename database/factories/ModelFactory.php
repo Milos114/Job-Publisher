@@ -25,7 +25,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Job::class, function (Faker\Generator $faker) {
     return [
         'user_id' => factory(User::class)->make()->id,
-        'title' => $faker->text,
+        'title' => $faker->sentence,
         'description' => $faker->paragraph,
         'email' => $faker->email,
         'approve' => 1,
