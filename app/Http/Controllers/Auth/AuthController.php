@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Illuminate\Http\Request;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -29,6 +30,13 @@ class AuthController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
+
+    /**
+     * Where to redirect users after logout.
+     *
+     * @var string
+     */
+    protected $redirectAfterLogout = '/login';
 
     /**
      * Create a new authentication controller instance.
@@ -71,5 +79,20 @@ class AuthController extends Controller
         $user->roles()->attach(1);
 
         return $user;
+    }
+
+    /**
+     * Handle different user types after valid login
+     *
+     * @param  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    protected function authenticated($request)
+    {
+        if ($request->user()->hasRole('admin')) {
+            return redirect()->intended('admin/home');
+        }
+
+        return redirect()->intended('/');
     }
 }

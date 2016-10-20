@@ -51,7 +51,9 @@
                 </ul>
 
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/job-submission') }}">Job Submission</a></li>
+                    @if (Auth::check())
+                        <li><a href="{{ url('/job-submission') }}">Job Submission</a></li>
+                    @endif
                 </ul>
 
                 <!-- Right Side Of Navbar -->
