@@ -2,20 +2,22 @@
 
 namespace App;
 
-use App\BoardJobs\Presenters\UserPresenter;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\BoardJobs\Traits\UserPresenterTrait;
 
 class User extends Authenticatable
 {
-    use EntrustUserTrait;
+    use EntrustUserTrait, UserPresenterTrait;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
     ];
 
     /**
@@ -24,18 +26,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
-
-    /**
-     * Present the user data
-     *
-     * @return UserPresenter
-     */
-    public function presenter()
-    {
-        return new UserPresenter($this);
-    }
 
     /**
      * User can have many jobs
