@@ -5,7 +5,6 @@ namespace App;
 use App\BoardJobs\Presenters\UserPresenter;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\BoardJobs\Traits\UserPresenterTrait;
 
 class User extends Authenticatable
 {
