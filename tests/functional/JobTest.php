@@ -15,6 +15,9 @@ class JobTest extends TestCase
         $user = factory(User::class)->create();
         $this->actingAs($user);
 
+        $this->setExpectedException('Exception');
+        $user->pendingJobs();
+
         $this->call('POST', '/job-submission', [
             'user_id' => $user->id,
             'title' => 'title some',
@@ -26,7 +29,8 @@ class JobTest extends TestCase
             'user_id' => $user->id,
             'email' => 'sally@example.com',
             'title' => 'title some',
-            'description' => 'description some'
+            'description' => 'description some',
+            'approve' => 0
         ]);
     }
 }
