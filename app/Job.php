@@ -25,4 +25,13 @@ class Job extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * @param  $query
+     * @return mixed
+     */
+    public function scopeApproved($query)
+    {
+        return $query->with('user')->where('approve', 1);
+    }
 }

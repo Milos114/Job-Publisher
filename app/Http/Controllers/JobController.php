@@ -6,6 +6,7 @@ use App\BoardJobs\FirstTimePoster;
 use App\BoardJobs\RegularPoster;
 
 use App\Http\Requests;
+use App\Job;
 
 class JobController extends Controller
 {
@@ -24,7 +25,9 @@ class JobController extends Controller
      */
     public function create()
     {
-        return view('jobs.create');
+        $jobs = Job::approved()->get();
+
+        return view('jobs.create', compact('jobs'));
     }
 
     /**
