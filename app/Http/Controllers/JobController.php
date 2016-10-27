@@ -25,7 +25,7 @@ class JobController extends Controller
      */
     public function create()
     {
-        $jobs = Job::approved()->get();
+        $jobs = Job::approved()->simplePaginate(10);
 
         return view('jobs.create', compact('jobs'));
     }

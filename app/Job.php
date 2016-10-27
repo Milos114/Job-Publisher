@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Job extends Model
 {
@@ -32,6 +33,6 @@ class Job extends Model
      */
     public function scopeApproved($query)
     {
-        return $query->with('user')->where('approve', 1);
+        return $query->with('user')->where('approve', 1)->orderBy('created_at', 'desc');
     }
 }
