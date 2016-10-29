@@ -25,4 +25,13 @@ class UserPresenter
     {
         return $this->user->name . " : " . $this->user->email;
     }
+
+    /**
+     * @param  int $size
+     * @return string
+     */
+    public function gravatar($size = 50)
+    {
+        return "//www.gravatar.com/avatar/" . md5($this->user->email) . "?s=" . $size;
+    }
 }
