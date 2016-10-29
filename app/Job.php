@@ -33,6 +33,10 @@ class Job extends Model
      */
     public function scopeApproved($query)
     {
-        return $query->with('user')->where('approve', 1)->orderBy('created_at', 'desc');
+        return $query->with(['user' => function ($user) {
+            $user->addSelect(['name', 'id']);
+        }])->where('approve', 1)
+            ->orderBy('created_at', 'desc')
+            ->addSelect('title', 'created_at', 'user_id');
     }
 }
