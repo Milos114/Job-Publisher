@@ -20,6 +20,10 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
+// Github login
+Route::get('auth/github', 'Auth\AuthController@redirectToProvider');
+Route::get('github/callback', 'Auth\AuthController@handleProviderCallback');
+
 // Jobs
 Route::get('job-submission', 'JobController@create');
 Route::post('job-submission', 'JobController@store');
