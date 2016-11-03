@@ -58,7 +58,7 @@ class User extends Authenticatable
      */
     public function jobPending()
     {
-        return $this->jobs()->where('approve', 0)->first() ? true : false;
+        return $this->jobs()->where('approve', 0)->exists();
     }
 
     /**
@@ -66,7 +66,7 @@ class User extends Authenticatable
      *
      * @return mixed
      */
-    public function process()
+    public function process() : User
     {
         if ($this->id) {
             return $this;
