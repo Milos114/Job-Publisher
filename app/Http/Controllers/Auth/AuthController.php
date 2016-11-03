@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use Validator;
 use App\Http\Controllers\Controller;
@@ -112,9 +113,15 @@ class AuthController extends Controller
      */
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('github')->user();
-//        dd($user->email);
+        $gitUser = Socialite::driver('github')->user();
 
-        // $user->token;
+        $user = User::firstOrNew([
+            'email' => $gitUser->email,
+            'name' => $gitUser->nickname
+        ])->process();
+
+        Auth::loginUsingId($user->id);
+
+        return redirect('/home');
     }
 }

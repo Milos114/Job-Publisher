@@ -3,6 +3,7 @@
 namespace App;
 
 use App\BoardJobs\Presenters\UserPresenter;
+use Illuminate\Support\Facades\Auth;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -58,6 +59,25 @@ class User extends Authenticatable
     public function jobPending()
     {
         return $this->jobs()->where('approve', 0)->first() ? true : false;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function process()
+    {
+        $user = static::where('email', $this->email)->exists()
+            ? static::where('email', $this->email)->first()
+            : null;
+
+        if ($user) {
+            return $user;
+        }
+
+        return static::create([
+            'email' => $this->email,
+            'name' => $this->name
+        ]);
     }
 
 }
