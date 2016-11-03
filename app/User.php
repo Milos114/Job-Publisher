@@ -72,14 +72,6 @@ class User extends Authenticatable
             return $this;
         }
 
-        return $this->createUser();
-    }
-
-    /**
-     * @return static
-     */
-    protected function createUser()
-    {
         return static::create([
             'email' => $this->email,
             'name' => $this->name
