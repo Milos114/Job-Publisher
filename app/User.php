@@ -62,16 +62,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Log in existing or create new user
+     *
      * @return mixed
      */
     public function process()
     {
-        $user = static::where('email', $this->email)->exists()
-            ? static::where('email', $this->email)->first()
-            : null;
-
-        if ($user) {
-            return $user;
+        if ($this->id) {
+            return $this;
         }
 
         return static::create([
