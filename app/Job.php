@@ -36,7 +36,30 @@ class Job extends Model
         return $query->with(['user' => function ($user) {
             $user->addSelect(['name', 'id']);
         }])->where('approve', 1)
-            ->orderBy('created_at', 'desc')
             ->addSelect('title', 'created_at', 'user_id');
+    }
+
+    /**
+     * Query builder
+     *
+     * @param  $query
+     * @param  $filter
+     * @return mixed
+     */
+    public function scopeFilter($query, $filter)
+    {
+        if (isset($filter['search'])) {
+            foreach (explode(" ", $filter['search']) as $searchWord) {
+                $query->where('title', 'like', '%' . $searchWord . '%')
+                    ->orWhere('description', 'like', '%' . $searchWord . '%');
+            }
+        }
+
+        if (isset($filter['order'])) {
+            $order = ($filter['order'] == 'oldest') ? 'asc' : 'desc';
+            $query->orderBy('created_at', $order);
+        }
+
+        return $query;
     }
 }

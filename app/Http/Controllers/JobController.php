@@ -7,6 +7,7 @@ use App\BoardJobs\RegularPoster;
 
 use App\Http\Requests;
 use App\Job;
+use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
@@ -19,15 +20,25 @@ class JobController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index(Request $request)
+    {
+        $jobs = Job::approved()
+            ->filter($request->except('_token'))
+            ->paginate($request->get('paginate'));
+
+        return view('jobs.index', compact('jobs'));
+    }
+    /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        $jobs = Job::approved()->simplePaginate(10);
-
-        return view('jobs.create', compact('jobs'));
+        return view('jobs.create');
     }
 
     /**

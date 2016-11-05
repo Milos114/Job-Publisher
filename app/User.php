@@ -66,7 +66,7 @@ class User extends Authenticatable
      *
      * @return mixed
      */
-    public function process() : User
+    public function process()
     {
         if ($this->id) {
             return $this;

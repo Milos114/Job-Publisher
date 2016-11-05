@@ -25,6 +25,7 @@ Route::get('auth/github', 'Auth\AuthController@redirectToProvider');
 Route::get('github/callback', 'Auth\AuthController@handleProviderCallback');
 
 // Jobs
+Route::get('jobs', 'JobController@index');
 Route::get('job-submission', 'JobController@create');
 Route::post('job-submission', 'JobController@store');
 

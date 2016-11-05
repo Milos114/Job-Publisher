@@ -5,15 +5,15 @@
         <div class="row">
             <h1>Job submission page</h1>
 
+            {{--<div class="col-md-8">--}}
+                {{--@foreach($jobs as $job)--}}
+                    {{--<div><a href="#">{{str_limit($job->title, 50)}}</a> <small>Created by : {{$job->user->name}} - {{$job->created_at->diffForHumans()}}</small></div>--}}
+                {{--@endforeach--}}
+
+                {{--<div class="pull-left">{{ $jobs->links() }}</div>--}}
+            {{--</div>--}}
+
             <div class="col-md-8">
-                @foreach($jobs as $job)
-                    <div><a href="#">{{str_limit($job->title, 50)}}</a> <small>Created by : {{$job->user->name}} - {{$job->created_at->diffForHumans()}}</small></div>
-                @endforeach
-
-                <div class="pull-left">{{ $jobs->links() }}</div>
-            </div>
-
-            <div class="col-md-4">
                 @include('partials.status')
                 @include('partials.errors')
 
