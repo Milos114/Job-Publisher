@@ -2,8 +2,8 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
 class Job extends Model
 {
@@ -48,16 +48,29 @@ class Job extends Model
      */
     public function scopeFilter($query, $filter)
     {
-        if (isset($filter['search'])) {
-            foreach (explode(" ", $filter['search']) as $searchWord) {
-                $query->where('title', 'like', '%' . $searchWord . '%')
-                    ->orWhere('description', 'like', '%' . $searchWord . '%');
-            }
+        if ($filter['search'] ?? null) {
+            $search = $filter['search'];
+
+            $query->where(function ($query) use ($search) {
+                foreach (explode(" ", $search) as $searchWord) {
+                    $query->where('title', 'like', '%' . $searchWord . '%')
+                        ->orWhere('description', 'like', '%' . $searchWord . '%');
+                }
+            });
         }
 
         if (isset($filter['order'])) {
             $order = ($filter['order'] == 'oldest') ? 'asc' : 'desc';
             $query->orderBy('created_at', $order);
+        }
+
+        if ($filter['from'] ?? null && $filter['to'] ?? null) {
+            $from = Carbon::parse($filter['from'])->toDateTimeString();
+            $to = Carbon::parse($filter['to'])->toDateTimeString();
+
+            $query->where(function ($query) use ($from, $to) {
+                $query->whereBetween('created_at', [$from, $to]);
+            });
         }
 
         return $query;
