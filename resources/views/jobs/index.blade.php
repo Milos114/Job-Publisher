@@ -10,7 +10,10 @@
                 @foreach($jobs as $job)
                     <div>
                         <a href="#">{{str_limit($job->title, 50)}}</a>
-                        <small>Created by : {{$job->user->name}} - {{$job->created_at->diffForHumans()}}
+                        <small>Created by : {{$job->user->name}} -
+                            <span style="color: {{$job->presenter()->color()}}">
+                                {{$job->created_at->diffForHumans()}}
+                            </span>
                         </small>
                     </div>
                 @endforeach

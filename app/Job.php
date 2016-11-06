@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\BoardJobs\Presenters\JobPresenter;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,6 +26,16 @@ class Job extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Present the job data
+     *
+     * @return JobPresenter
+     */
+    public function presenter()
+    {
+        return new JobPresenter($this);
     }
 
     /**
@@ -65,8 +76,8 @@ class Job extends Model
         }
 
         if ($filter['from'] ?? null && $filter['to'] ?? null) {
-            $from = Carbon::parse($filter['from'])->toDateTimeString();
-            $to = Carbon::parse($filter['to'])->toDateTimeString();
+            $from = Carbon::parse($filter['from'])->toDateString();
+            $to = Carbon::parse($filter['to'])->toDateString();
 
             $query->where(function ($query) use ($from, $to) {
                 $query->whereBetween('created_at', [$from, $to]);
@@ -75,4 +86,5 @@ class Job extends Model
 
         return $query;
     }
+
 }

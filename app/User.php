@@ -62,7 +62,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Log in existing or create new user
+     * Return the existing user or create a new one
      *
      * @return mixed
      */
