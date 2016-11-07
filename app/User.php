@@ -19,6 +19,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'git_id'
     ];
 
     /**
@@ -74,7 +75,8 @@ class User extends Authenticatable
 
         return static::create([
             'email' => $this->email,
-            'name' => $this->name
+            'name' => $this->name,
+            'git_id' => $this->git_id
         ]);
     }
 

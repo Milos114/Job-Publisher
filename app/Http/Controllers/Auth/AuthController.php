@@ -117,10 +117,11 @@ class AuthController extends Controller
 
         $user = User::firstOrNew([
             'email' => $gitUser->email,
-            'name' => $gitUser->nickname
+            'name' => $gitUser->nickname,
+            'git_id' => $gitUser->id
         ])->process();
 
-        Auth::loginUsingId($user->id);
+        Auth::login($user);
 
         return redirect('/home');
     }
