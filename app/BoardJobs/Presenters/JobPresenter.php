@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: misel
- * Date: 11/6/16
- * Time: 7:07 PM
- */
 
 namespace App\BoardJobs\Presenters;
 
@@ -16,11 +10,18 @@ class JobPresenter
 {
     protected $job;
 
+    /**
+     * JobPresenter constructor.
+     * @param Job $job
+     */
     public function __construct(Job $job)
     {
         $this->job = $job;
     }
 
+    /**
+     * @return string
+     */
     public function color()
     {
         if ($this->job->created_at->addWeeks(1) < Carbon::now()) {
