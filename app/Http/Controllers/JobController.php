@@ -26,7 +26,7 @@ class JobController extends Controller
      */
     public function index(Request $request)
     {
-        $tags = Tag::all();
+        $tags = Tag::get(['id', 'name']);
 
         $jobs = Job::approved()
             ->filter($request->except('_token'))
@@ -41,7 +41,7 @@ class JobController extends Controller
      */
     public function create()
     {
-        $tags = Tag::all();
+        $tags = Tag::get(['id', 'name']);
 
         return view('jobs.create', compact('tags'));
     }
