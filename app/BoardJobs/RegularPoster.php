@@ -11,6 +11,8 @@ class RegularPoster
      */
     public function handle($attributes)
     {
-        return auth()->user()->jobs()->create($attributes);
+        $job = auth()->user()->jobs()->create($attributes);
+
+        $job->tags()->attach($attributes['tags']);
     }
 }

@@ -29,6 +29,14 @@ class Job extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
+    /**
      * Present the job data
      *
      * @return JobPresenter
@@ -81,6 +89,14 @@ class Job extends Model
 
             $query->where(function ($query) use ($from, $to) {
                 $query->whereBetween('created_at', [$from, $to]);
+            });
+        }
+
+        if ($filter['tags'] ?? null) {
+            $tags = $filter['tags'];
+
+            $query->whereHas('tags', function ($query) use ($tags) {
+                    $query->whereIn('tag_id', $tags);
             });
         }
 

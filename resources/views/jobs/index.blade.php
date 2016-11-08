@@ -24,7 +24,8 @@
                         'paginate' => Request::get('paginate'),
                         'order' => Request::get('order'),
                         'from' => Request::get('from'),
-                        'to' => Request::get('to')
+                        'to' => Request::get('to'),
+                        'tags' => Request::get('tags'),
                     ])->links() }}
                 </div>
             </div>
@@ -60,6 +61,21 @@
                     <div class="form-group">
                         <input type="text" id="datepickerTo" class="form-control" name="to" placeholder="Date to" value="{{Request::get('to')}}">
                     </div>
+
+                    <div class="form-group">
+                        <label for="tags">Tags:</label>
+                        @foreach($tags as $tag)
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="{{$tag->id}}" name="tags[]"
+                                           {{(is_array( Request::get('tags')) && in_array($tag->id, Request::get('tags'))) ? 'checked' : ''}}
+                                           id="tags">
+                                    {{$tag->name}}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+
                     <hr>
 
                     <button type="submit" class="btn btn-primary">Submit</button>

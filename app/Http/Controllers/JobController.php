@@ -7,6 +7,7 @@ use App\BoardJobs\RegularPoster;
 
 use App\Http\Requests;
 use App\Job;
+use App\Tag;
 use Illuminate\Http\Request;
 
 class JobController extends Controller
@@ -25,11 +26,13 @@ class JobController extends Controller
      */
     public function index(Request $request)
     {
+        $tags = Tag::all();
+
         $jobs = Job::approved()
             ->filter($request->except('_token'))
             ->paginate($request->get('paginate'));
 
-        return view('jobs.index', compact('jobs'));
+        return view('jobs.index', compact('jobs', 'tags'));
     }
     /**
      * Show the form for creating a new resource.
@@ -38,7 +41,9 @@ class JobController extends Controller
      */
     public function create()
     {
-        return view('jobs.create');
+        $tags = Tag::all();
+
+        return view('jobs.create', compact('tags'));
     }
 
     /**

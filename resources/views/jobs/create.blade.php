@@ -33,6 +33,18 @@
                         <label for="email">Email address:</label>
                         <input type="email" name="email" class="form-control" id="email" value="{{old('email')}}">
                     </div>
+
+                    <div class="form-group">
+                        <label for="tags">Tags:</label>
+                        @foreach($tags as $tag)
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="{{$tag->id}}" name="tags[]" id="tags">{{$tag->name}}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
