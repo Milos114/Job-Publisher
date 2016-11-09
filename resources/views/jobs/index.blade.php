@@ -19,6 +19,11 @@
                         </small>
                         <div class="hides" id="{{$job->id}}-description">
                             {{$job->description}}
+                            <div>Tags:
+                                @foreach($job->tags as $tag)
+                                    <a href="#"> {{$tag->name}} </a>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 @endforeach

@@ -52,9 +52,7 @@ class Job extends Model
      */
     public function scopeApproved($query)
     {
-        return $query->with(['user' => function ($user) {
-            $user->addSelect(['name', 'id']);
-        }, 'tags'])->where('approve', 1);
+        return $query->with('user', 'tags')->where('approve', 1);
     }
 
     /**
