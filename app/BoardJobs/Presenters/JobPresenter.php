@@ -24,7 +24,7 @@ class JobPresenter
      */
     public function color()
     {
-        if ($this->job->created_at->addWeeks(1) < Carbon::now()) {
+        if ($this->job->created_at->addDays(1) < Carbon::now()) {
             return 'red';
         }
 

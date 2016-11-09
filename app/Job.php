@@ -77,6 +77,7 @@ class Job extends Model
 
         if (isset($filter['order'])) {
             $order = ($filter['order'] == 'oldest') ? 'asc' : 'desc';
+
             $query->orderBy('created_at', $order);
         }
 
@@ -93,7 +94,7 @@ class Job extends Model
             $tags = $filter['tags'];
 
             $query->whereHas('tags', function ($query) use ($tags) {
-                    $query->whereIn('tag_id', $tags);
+                $query->whereIn('tag_id', $tags);
             });
         }
 
