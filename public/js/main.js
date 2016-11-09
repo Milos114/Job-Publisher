@@ -5,3 +5,10 @@ $('.order').on('click', function () {
 $('#paginate').on('change', function () {
     $('#form').submit();
 });
+
+function showDescription(jobId) {
+    $('#' + jobId + '-description').toggle(100);
+}
+
+
+

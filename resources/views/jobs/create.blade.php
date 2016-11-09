@@ -39,7 +39,9 @@
                         @foreach($tags as $tag)
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" value="{{$tag->id}}" name="tags[]" id="tags">{{$tag->name}}
+                                    <input type="checkbox" value="{{$tag->id}}" name="tags[]" id="tags"
+                                    {{is_array(old('tags')) && in_array($tag->id, old('tags')) ? 'checked' : ''}}>
+                                    {{$tag->name}}
                                 </label>
                             </div>
                         @endforeach

@@ -54,8 +54,7 @@ class Job extends Model
     {
         return $query->with(['user' => function ($user) {
             $user->addSelect(['name', 'id']);
-        }])->where('approve', 1)
-            ->addSelect('title', 'created_at', 'user_id');
+        }, 'tags'])->where('approve', 1);
     }
 
     /**

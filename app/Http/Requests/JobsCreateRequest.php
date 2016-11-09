@@ -27,6 +27,7 @@ class JobsCreateRequest extends Request
             'description' => 'required',
             'title' => 'required',
             'email' => 'required|email|unique:jobs',
+            'tags' => 'required'
         ];
     }
 

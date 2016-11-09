@@ -26,6 +26,11 @@ class JobController extends Controller
      */
     public function index(Request $request)
     {
+        $this->validate($request, [
+           'from' => 'date',
+           'to' => 'date',
+        ]);
+
         $tags = Tag::get(['id', 'name']);
 
         $jobs = Job::approved()

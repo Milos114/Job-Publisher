@@ -9,12 +9,17 @@
             <div class="col-md-8">
                 @foreach($jobs as $job)
                     <div>
-                        <a href="#">{{str_limit($job->title, 50)}}</a>
+                        <a href="#" id="{{$job->id}}" onclick="showDescription({{$job->id}})">
+                            {{str_limit($job->title, 50)}}
+                        </a>
                         <small>Created by : {{$job->user->name}} -
                             <span style="color: {{$job->presenter()->color()}}">
                                 {{$job->created_at->diffForHumans()}}
                             </span>
                         </small>
+                        <div class="hides" id="{{$job->id}}-description">
+                            {{$job->description}}
+                        </div>
                     </div>
                 @endforeach
 
@@ -33,6 +38,7 @@
 
 
             <div class="col-md-4" style="border: 1px solid silver; padding: 2%;">
+                @include('partials.errors')
                 <form action="jobs" method="get" id="form">
                     <div class="form-group">
                         <label for="search">Search:</label>
