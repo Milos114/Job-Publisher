@@ -46,14 +46,12 @@
                 @include('partials.errors')
                 <form action="jobs" method="get" id="form">
                     <div class="form-group">
-                        <label for="search">Search:</label>
-                        <input type="text" name="search" class="form-control" id="search" value="{{Request::get('search')}}">
+                        <input type="text" name="search" class="form-control" id="search" placeholder="Search Job" value="{{Request::get('search')}}">
                     </div>
 
                     <div class="form-group">
-                        <label for="paginate">Paginate:</label>
                         <select name="paginate" class="form-control" id="paginate" >
-                            <option disabled selected>Chose...</option>
+                            <option disabled selected>Chose Pagination...</option>
                             <option {{Request::get('paginate') == 3 ? "selected" : ''}}>3</option>
                             <option {{Request::get('paginate') == 5 ? "selected" : ''}}>5</option>
                             <option {{Request::get('paginate') == 10 ? "selected" : ''}}>10</option>
@@ -70,7 +68,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="text" id="datepickerTo" class="form-control" name="to" placeholder="Date to" value="{{Request::get('to')}}">
+                        <input type="text" id="datepickerTo" class="form-control" name="to" placeholder="Date To" value="{{Request::get('to')}}">
                     </div>
 
                     <div class="form-group">
