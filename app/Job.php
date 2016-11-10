@@ -64,7 +64,7 @@ class Job extends Model
      */
     public function scopeFilter($query, $filter)
     {
-        if ($filter['search'] ?? null) {
+        if (isset($filter['search'])) {
             $search = $filter['search'];
 
             $query->where(function ($query) use ($search) {
@@ -81,7 +81,7 @@ class Job extends Model
             $query->orderBy('created_at', $order);
         }
 
-        if ($filter['from'] ?? null && $filter['to'] ?? null) {
+        if (!empty($filter['from']) && !empty($filter['to'])) {
             $from = Carbon::parse($filter['from'])->toDateString();
             $to = Carbon::parse($filter['to'])->toDateString();
 
@@ -90,7 +90,7 @@ class Job extends Model
             });
         }
 
-        if ($filter['tags'] ?? null) {
+        if (isset($filter['tags'])) {
             $tags = $filter['tags'];
 
             $query->whereHas('tags', function ($query) use ($tags) {
