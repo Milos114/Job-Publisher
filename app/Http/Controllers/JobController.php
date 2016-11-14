@@ -12,11 +12,15 @@ use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
+    protected $tag;
+
     /**
      * JobController constructor.
+     * @param Tag $tag
      */
-    public function __construct()
+    public function __construct(Tag $tag)
     {
+        $this->tag = $tag;
         $this->middleware('auth');
     }
 
@@ -31,7 +35,7 @@ class JobController extends Controller
            'to' => 'date',
         ]);
 
-        $tags = Tag::get(['id', 'name']);
+        $tags = $this->tag->get(['id', 'name']);
 
         $jobs = Job::approved()
             ->filter($request->except('_token'))
@@ -46,7 +50,7 @@ class JobController extends Controller
      */
     public function create()
     {
-        $tags = Tag::get(['id', 'name']);
+        $tags = $this->tag->get(['id', 'name']);
 
         return view('jobs.create', compact('tags'));
     }
