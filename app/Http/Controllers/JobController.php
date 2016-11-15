@@ -31,8 +31,13 @@ class JobController extends Controller
     public function index(Request $request)
     {
         $this->validate($request, [
-           'from' => 'date',
-           'to' => 'date',
+            'search' => 'regex:/^[^<>\'\"]+$/',
+            'from' => 'date',
+            'to' => 'date',
+        ], [
+            'to.date' => 'Please enter valid date format',
+            'from.date' => 'Please enter valid date format',
+            'search.regex' => 'Characters <, >, ", \' are not allowed',
         ]);
 
         $tags = $this->tag->get(['id', 'name']);
@@ -43,6 +48,7 @@ class JobController extends Controller
 
         return view('jobs.index', compact('jobs', 'tags'));
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -65,7 +71,7 @@ class JobController extends Controller
     public function store(Requests\JobsCreateRequest $request)
     {
         if (auth()->user()->jobPending()) {
-          throw new \Exception('You will have to wait for admin approval regarding your previous submission');
+            throw new \Exception('You will have to wait for admin approval regarding your previous submission');
         }
 
         $this->getStrategy()->handle($request->all());
