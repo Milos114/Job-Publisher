@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use App\BoardJobs\FirstTimePoster;
 use App\BoardJobs\RegularPoster;
-
-use App\Http\Requests;
+use App\Http\Requests\JobFilterRequest;
+use App\Http\Requests\JobsCreateRequest;
 use App\Job;
 use App\Tag;
-use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
@@ -25,21 +24,11 @@ class JobController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param JobFilterRequest $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(JobFilterRequest $request)
     {
-        $this->validate($request, [
-            'search' => 'regex:/^[^<>\'\"]+$/',
-            'from' => 'date',
-            'to' => 'date',
-        ], [
-            'to.date' => 'Please enter valid date format',
-            'from.date' => 'Please enter valid date format',
-            'search.regex' => 'Characters <, >, ", \' are not allowed',
-        ]);
-
         $tags = $this->tag->get(['id', 'name']);
 
         $jobs = Job::approved()
@@ -64,11 +53,11 @@ class JobController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Requests\JobsCreateRequest $request
+     * @param  JobsCreateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function store(Requests\JobsCreateRequest $request)
+    public function store(JobsCreateRequest $request)
     {
         if (auth()->user()->jobPending()) {
             throw new \Exception('You will have to wait for admin approval regarding your previous submission');
